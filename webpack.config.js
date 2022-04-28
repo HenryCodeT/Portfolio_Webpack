@@ -15,7 +15,10 @@ module.exports = {
     resolve : {
         extensions: ['.js'],
         alias: {
-            ''
+            '@utils':path.resolve(__dirname, 'src/utils/'),
+            '@templates':path.resolve(__dirname, 'src/templates/'),
+            '@styles':path.resolve(__dirname, 'src/styles/'),
+            '@images':path.resolve(__dirname, 'src/assets/images/'),
         }
     },
     module:{ 
@@ -39,22 +42,11 @@ module.exports = {
                 type: "asset/resource"
             },
             {
-                test: /\.(woff|woff2)$/,
-                use: {
-                  loader: "url-loader",
-                  options: {
-                    // limit => limite de tamaño
-                    limit: 10000,
-                    // Mimetype => tipo de dato
-                    mimetype: "application/font-woff",
-                    // name => nombre de salida
-                    name: "[name].[contenthash].[ext]",
-                    // outputPath => donde se va a guardar en la carpeta final
-                    outputPath: "./assets/fonts/",
-                    publicPath: "./assets/fonts/",
-                    esModule: false,
-                  }
-                }
+                test:  /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: "asset/resource",
+                generator: {
+                  filename: "assets/fonts/[hash][ext]",
+                },
             }        
         ]
     },
